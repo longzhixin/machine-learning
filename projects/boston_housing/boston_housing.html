@@ -11771,7 +11771,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Importing a few necessary libraries</span>
@@ -11792,6 +11792,8 @@ div#notebook {
 <span class="c1"># Initialize the housing prices and housing features</span>
 <span class="n">housing_prices</span> <span class="o">=</span> <span class="n">city_data</span><span class="o">.</span><span class="n">target</span>
 <span class="n">housing_features</span> <span class="o">=</span> <span class="n">city_data</span><span class="o">.</span><span class="n">data</span>
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">housing_features</span><span class="p">)</span>
+
 <span class="k">print</span> <span class="s2">&quot;Boston Housing dataset loaded successfully!&quot;</span>
 </pre></div>
 
@@ -11805,7 +11807,8 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Boston Housing dataset loaded successfully!
+<pre>506
+Boston Housing dataset loaded successfully!
 </pre>
 </div>
 </div>
@@ -12092,7 +12095,7 @@ Ensure that you have executed the code block once you are done. You'll know the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Put any import statements you need for this code block here</span>
@@ -12282,7 +12285,7 @@ Ensure that you have executed the code block once you are done. You'll know the 
 <ul>
 <li><strong>cross-validation:</strong> Learning the parameters of a prediction function and testing it on the same data is a methodological mistake: a model that would just repeat the labels of the samples that it has just seen would have a perfect score but would fail to predict anything useful on yet-unseen data. This situation is called overfitting. To avoid it, it is common practice when performing a (supervised) machine learning experiment to hold out part of the available data as a test set X_test, y_test. Note that the word “experiment” is not intended to denote academic use only, because even in commercial settings machine learning usually starts out experimentally.<strong>All in all, cross-validation is used to split data to traning set and testing set. used evaluating estimator performance</strong></li>
 <li><strong>how performed:</strong> there are many ways to performed on the model.For example, train_test_split, used to split data to traning set and testing set randomly. KFold function is also used to split the data.KFold divides all the samples in k groups of samples, called folds (if k = n, this is equivalent to the Leave One Out strategy), of equal sizes (if possible). The prediction function is learned using k - 1 folds, and the fold left out is used for test.</li>
-<li><strong>grid search:</strong> When we used GridSearchCV, we have many combinations,GridSearchCV have a parameter. A dictionary of the parameters, and the possible values they may take. In this case, they're playing around with the kernel (possible choices are 'linear' and 'rbf'), and C (possible choices are 1 and 10).Then all the following combinations of values for (kernel, C) are automatically generated: [('rbf', 1), ('rbf', 10), ('linear', 1), ('linear', 10)]. Each is used to train an SVM, and the performance is then assessed using cross-validation.</li>
+<li><strong>grid search:</strong> When we used GridSearchCV, we must choose which combination was best performance. if we use mean_suqare_error to decide which is best, we might use KFold to compute the average error across all k trials is computed. only in this way, we can full use the every data point to get average error. we choose best combination by average error.</li>
 </ul>
 
 </div>
@@ -13398,7 +13401,7 @@ EREREVEUFpKJiIiIiKKwkExEREREFIWFZCIiIiKiKP8PfsQVbJIT6IEAAAAASUVORK5CYII=
 <ul>
 <li><strong>max depth:</strong> 6</li>
 <li><strong>As the size of the training set increases,</strong> training error become increasing.</li>
-<li><strong>As the size of the training set increases,</strong> test error become decreasing, the difference bewteen traning set and testing set become more little.</li>
+<li><strong>As the size of the training set increases,</strong> test error become decreasing,finally, it will decrease very slowly, even tend to a stable value. the difference bewteen traning set and testing set become more little.</li>
 </ul>
 
 </div>
@@ -13421,8 +13424,8 @@ EREREVEUFpKJiIiIiKKwkExEREREFIWFZCIiIiKiKP8PfsQVbJIT6IEAAAAASUVORK5CYII=
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ul>
-<li><strong> max depth = 1 :</strong> high bias</li>
-<li><strong> max depth = 10:</strong> high variance </li>
+<li><strong> max depth = 1 :</strong> because, as the traning set and testing set 's error both was large. no matter how many data we provide, error was still large, this is bias.  </li>
+<li><strong> max depth = 10:</strong> high variance, the difference bewteen traning and testing set was too large. So, this causes high variance.</li>
 </ul>
 
 </div>
@@ -13800,8 +13803,10 @@ PNmZmVnlebIzM7PK82RnZmaV9xOjmHz8Md/pewAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong>
-** I think best max depth is 6. because it has lowest traning set error, it also have little training error, have low bias, low variance.</p>
+<p><strong>Answer: </strong></p>
+<ul>
+<li><strong> I think best max depth is 6. because it has lowest traning set error, it also have little training error, have low bias, low variance. if the maximum depth was too small, it will cause high bias, if the maximum depth was too large, it will canuse high variance,we must choose low bias, and low variance. </strong></li>
+</ul>
 
 </div>
 </div>
@@ -13881,10 +13886,17 @@ PNmZmVnlebIzM7PK82RnZmaV9xOjmHz8Md/pewAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sale_price</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">CLIENT_FEATURES</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="n">sale_price</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">CLIENT_FEATURES</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">housing_features</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">housing_features</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">CLIENT_FEATURES</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">2.0</span><span class="p">:</span>
+         <span class="k">print</span> <span class="n">housing_prices</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+         <span class="k">print</span> <span class="n">housing_features</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>   
+
+
 <span class="k">print</span> <span class="s2">&quot;Predicted value of client&#39;s home: {0:.3f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sale_price</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 
@@ -13898,7 +13910,12 @@ PNmZmVnlebIzM7PK82RnZmaV9xOjmHz8Md/pewAAAABJRU5ErkJggg==
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Predicted value of client&#39;s home: 20.766
+<pre>27.9
+[  1.19511000e+01   0.00000000e+00   1.81000000e+01   0.00000000e+00
+   6.59000000e-01   5.60800000e+00   1.00000000e+02   1.28520000e+00
+   2.40000000e+01   6.66000000e+02   2.02000000e+01   3.32090000e+02
+   1.21300000e+01]
+Predicted value of client&#39;s home: 20.766
 </pre>
 </div>
 </div>
@@ -13912,7 +13929,8 @@ PNmZmVnlebIzM7PK82RnZmaV9xOjmHz8Md/pewAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> Predicted value of client's home: 20.766</p>
+<p><strong>Answer: </strong> Predicted value of client's home: 20.766, searching for the basic statistic, I found the housing_prices is 27.9
+the predicted is small than the real price.**</p>
 
 </div>
 </div>
@@ -13935,6 +13953,7 @@ PNmZmVnlebIzM7PK82RnZmaV9xOjmHz8Md/pewAAAABJRU5ErkJggg==
 <p><strong>Answer: </strong></p>
 <ul>
 <li><strong> I think may be not. These data are from 1993 year.The data was out of date.</strong></li>
+<li><strong> we don't check the outlier.It will change the result.</strong></li>
 </ul>
 
 </div>
